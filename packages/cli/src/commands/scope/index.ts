@@ -1,0 +1,5 @@
+import './add'
+import './deprecate'
+import './describe'
+import './rename'
+import './list'

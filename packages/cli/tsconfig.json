@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "allowJs": false,
+    // "declaration": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "strict": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./buildcache/.tsbuildinfo"
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
