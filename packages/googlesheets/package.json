@@ -1,0 +1,33 @@
+{
+  "name": "lingojs-tools",
+  "version": "0.0.0",
+  "description": "Tools for lingojs",
+  "author": "Mathieu Chan Yee Choy <mathieu77197@gmail.com>",
+  "homepage": "https://github.com/Bazooo/LingoSheets#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bazooo/LingoSheets.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/Bazooo/LingoSheets/issues"
+  },
+  "dependencies": {
+    "googleapis": "^43.0.0",
+    "typescript": "^3.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.4"
+  }
+}
