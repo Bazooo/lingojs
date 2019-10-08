@@ -1,10 +1,16 @@
-import { sheets_v4 as googleSheets } from 'googleapis'
 import { RowData } from '../helpers/sheets'
+import { ApiFunc } from '../helpers/functions'
 
-const appendValues = async (sheets: googleSheets.Sheets, range: string, values: RowData[]): Promise<void> => {
+export interface AppendValuesArgs {
+  range: string
+  values: RowData[]
+}
+
+const appendValues: ApiFunc<AppendValuesArgs> = async ({ sheets, spreadsheetId }, { range, values }): Promise<void> => {
   try {
     await sheets.spreadsheets.values.append({
       range,
+      spreadsheetId,
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values,

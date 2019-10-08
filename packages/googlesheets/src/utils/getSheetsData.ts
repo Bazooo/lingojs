@@ -1,9 +1,8 @@
-import { sheets_v4 as googleSheets } from 'googleapis'
 import { LingoSheet, LingoSheetRanges, SheetsData } from '../helpers/sheets'
+import { ApiSheetsData } from '../helpers/functions'
 
 const getSheetsData = async <T extends LingoSheet[]>(
-  sheets: googleSheets.Sheets,
-  spreadsheetId: string,
+  { sheets, spreadsheetId }: ApiSheetsData,
   lingoSheets: T,
 ): Promise<SheetsData<T>> => {
   const ranges = lingoSheets.map((lingoSheet: LingoSheet) => {

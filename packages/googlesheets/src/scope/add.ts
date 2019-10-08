@@ -1,19 +1,25 @@
-import { sheets_v4 as googleSheets } from 'googleapis'
 import getKeyRow from '../utils/getKeyRow'
 import appendValues from '../utils/appendValues'
 import { LingoSheetRanges } from '../helpers/sheets'
+import { ApiFunc } from '../helpers/functions'
 
-const addScope = async (
-  sheets: googleSheets.Sheets,
-  spreadsheetId: string,
-  scopeName: string,
-  scopeDescription = '',
-): Promise<void> => {
+export interface AddScopeArgs {
+  scopeName: string
+  scopeDescription?: string
+}
+
+const addScope: ApiFunc<AddScopeArgs> = async (googleSheetsData, { scopeName, scopeDescription = '' }) => {
   // Check if scope exists
-  const scopeRow = await getKeyRow(sheets, spreadsheetId, scopeName, 'scopes')
+  const scopeRow = await getKeyRow(googleSheetsData, {
+    lingoSheet: 'scopes',
+    key: scopeName,
+  })
 
   if (scopeRow.index === -1) {
-    await appendValues(sheets, LingoSheetRanges.scopes, [[scopeName, scopeDescription]])
+    await appendValues(googleSheetsData, {
+      range: LingoSheetRanges.scopes,
+      values: [[scopeName, scopeDescription]],
+    })
   } else {
     throw new Error(`Scope ${scopeName} already exist`)
   }

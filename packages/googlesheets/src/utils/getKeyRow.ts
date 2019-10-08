@@ -1,7 +1,7 @@
-import { sheets_v4 as googleSheets } from 'googleapis'
 import { LingoSheet, LingoSheetRanges, RowData } from '../helpers/sheets'
+import { ApiFunc } from '../helpers/functions'
 
-interface KeyRow {
+export interface KeyRow {
   /**
    * The row index
    */
@@ -16,29 +16,34 @@ interface KeyRow {
   data: RowData
 }
 
-const getKeyRow = async (
-  sheets: googleSheets.Sheets,
-  spreadsheetId: string,
-  key: string,
-  lingoSheet: LingoSheet,
-): Promise<KeyRow> => {
+export interface GetKeyRowArgs {
+  lingoSheet: LingoSheet
+  key: string
+  formula?: boolean
+}
+
+const getKeyRow: ApiFunc<GetKeyRowArgs, Promise<KeyRow>> = async (
+  { sheets, spreadsheetId },
+  { lingoSheet, key, formula = false },
+) => {
   const range = LingoSheetRanges[lingoSheet]
 
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
       range,
-      valueRenderOption: 'UNFORMATTED_VALUE',
+      valueRenderOption: formula ? 'FORMULA' : 'UNFORMATTED_VALUE',
     })
 
     if (response.data.values) {
       const values = response.data.values as RowData[]
 
-      const index = values.findIndex(([valueKey]) => {
+      const arrayIndex = values.findIndex(([valueKey]) => {
         return valueKey === key
       })
 
-      const data = index !== -1 ? values[index].slice(1) : []
+      const index = arrayIndex !== -1 ? arrayIndex + 1 : arrayIndex
+      const data = arrayIndex !== -1 ? values[arrayIndex].slice(1) : []
 
       return {
         index,
