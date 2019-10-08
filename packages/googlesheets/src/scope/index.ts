@@ -2,7 +2,6 @@ import { sheets_v4 as googleSheets } from 'googleapis'
 import SheetsCommands from '../helpers/SheetsCommands'
 import addScope from './add'
 import describeScope from './describe'
-import listScopes, { ListScopesReturn } from './list'
 import renameScope from './rename'
 
 class Scope extends SheetsCommands {
@@ -22,10 +21,6 @@ class Scope extends SheetsCommands {
       scopeName,
       scopeDescription,
     })
-  }
-
-  list = async (): ListScopesReturn => {
-    return listScopes(this._apiSheetsData)
   }
 
   rename = async (scopeName: string, newScopeName: string): Promise<void> => {

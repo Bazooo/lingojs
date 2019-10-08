@@ -6,14 +6,17 @@ import getSheetsData from './utils/getSheetsData'
 import deprecateKey from './general/deprecate'
 import SheetsCommands from './helpers/SheetsCommands'
 import Scope from './scope'
+import Locale from './locale'
 
 export class LingoSheets extends SheetsCommands {
   public scope: Scope
+  public locale: Locale
 
   constructor(sheets: googleSheets.Sheets, spreadsheetId: string) {
     super(sheets, spreadsheetId)
 
     this.scope = new Scope(sheets, spreadsheetId)
+    this.locale = new Locale(sheets, spreadsheetId)
   }
 
   getSheetsData = async <T extends LingoSheet[]>(lingoSheets: T): Promise<SheetsData<T>> => {
